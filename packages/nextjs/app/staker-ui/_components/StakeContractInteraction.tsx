@@ -124,13 +124,13 @@ export const StakeContractInteraction = ({ address }: { address?: string }) => {
             className="btn btn-primary uppercase"
             onClick={async () => {
               try {
-                await writeContractAsync({ functionName: "stake", value: parseEther("0.5") });
+                await writeContractAsync({ functionName: "stake", value: parseEther("0.01") });
               } catch (err) {
                 console.error("Error calling stake function");
               }
             }}
           >
-            🔏 Stake 0.5 ether!
+            🔏 Stake 0.01 ether!
           </button>
         </div>
       </div>

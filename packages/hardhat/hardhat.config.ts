@@ -16,6 +16,7 @@ const deployerPrivateKey =
 // If not set, it uses ours Etherscan default API key.
 const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
 const etherscanOptimisticApiKey = process.env.ETHERSCAN_OPTIMISTIC_API_KEY || "5WAJWBWKK5ZCWJ1HQKJ61CMY8SZRMQEK94";
+const etherscanArbitrumSepoliaApiKey = process.env.ETHERSCAN_ARBITRUMSEPOLIA_API_KEY;
 
 // If not set, it uses ours Alchemy's default API key.
 // You can get your own at https://dashboard.alchemyapi.io
@@ -36,7 +37,7 @@ const config: HardhatUserConfig = {
       },
     ],
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "arbitrumSepolia",
   namedAccounts: {
     deployer: {
       // By default, it will take the first Hardhat account as the deployer
@@ -67,7 +68,14 @@ const config: HardhatUserConfig = {
     arbitrumSepolia: {
       url: `https://arb-sepolia.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
-    },
+      chainId: 421614,
+      verify: {
+        etherscan: {
+          apiUrl: "https://api-sepolia.arbiscan.io/api", 
+          apiKey: etherscanArbitrumSepoliaApiKey, 
+        },
+      },
+    },    
     optimism: {
       url: `https://opt-mainnet.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
@@ -77,7 +85,7 @@ const config: HardhatUserConfig = {
       accounts: [deployerPrivateKey],
       verify: {
         etherscan: {
-          apiUrl: "https://api-sepolia-optimistic.etherscan.io",
+          apiUrl: "https://api-sepolia-optimistic.etherscan.io/api",
           apiKey: etherscanOptimisticApiKey,
         },
       },
